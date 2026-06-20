@@ -200,7 +200,14 @@ ShopIQ is an independent, unofficial project — not affiliated with, endorsed b
 or connected to Amazon or any other retailer named here. It reads and automates
 pages in your own logged-in browser session, for personal use.
 
-It relies on the markup and undocumented endpoints of third-party sites, which
-can change or break at any time, and such use may be subject to those sites'
-terms of service. It is provided **as is**, without warranty, for educational
-and personal use — you are responsible for how you use it.
+<img width="424" height="841" alt="Image" src="https://github.com/user-attachments/assets/33b16e92-8b3e-4ac3-9b6e-b7b4fcfbd669" />
+<img width="442" height="862" alt="Image" src="https://github.com/user-attachments/assets/2755fc98-9b31-4920-b477-569b70fed9dd" />
+<img width="1360" height="863" alt="Image" src="https://github.com/user-attachments/assets/5cf50054-5024-4c48-b5c2-cbb08b8f6459" />
+<img width="1364" height="844" alt="Image" src="https://github.com/user-attachments/assets/2bf67cfb-6b80-4185-96e8-ab258472607c" />
+<img width="1472" height="878" alt="Image" src="https://github.com/user-attachments/assets/b2254a37-e107-4e47-88f4-1e48c60db189" />
+<img width="1429" height="861" alt="Image" src="https://github.com/user-attachments/assets/e599356a-4692-4bff-bf5f-66d492a3282f" />
+<img width="428" height="859" alt="Image" src="https://github.com/user-attachments/assets/f920f91e-5773-4787-bba1-d8199c24d303" />
+<img width="1355" height="831" alt="Image" src="https://github.com/user-attachments/assets/ad70702e-1062-4043-89e9-673a4d9e990e" />
+<img width="443" height="855" alt="Image" src="https://github.com/user-attachments/assets/4350d99d-fd69-4b70-8111-487997d6bc13" />
+<img width="458" height="866" alt="Image" src="https://github.com/user-attachments/assets/144ffde7-9994-4169-a270-4efbd7f24f54" />
+
