@@ -1,0 +1,331 @@
+{
+  "version": 1,
+  "amazon": {
+    "selectors": {
+      "productTitle": "#productTitle",
+      "asinDetailBullets": "#detailBullets_feature_div, #productDetails_detailBullets_sections1",
+      "brand": "#productOverview_feature_div tr.po-brand td:last-child span",
+      "categoryDropdown": "#searchDropdownBox",
+      "categoryDropdownSelected": "#searchDropdownBox option[selected]",
+      "categoryDropdownCurrentParent": "#searchDropdownBox option[current=\"parent\"]",
+      "breadcrumbFirstLink": "#wayfinding-breadcrumbs_feature_div ul li:first-child a",
+      "mrp": ".basisPrice .a-offscreen",
+      "discountPercent": ".apex-savings-container .apex-savings-percentage",
+      "priceWhole": "#corePriceDisplay_desktop_feature_div .a-price-whole",
+      "priceOffscreen": ".a-price .a-offscreen",
+      "priceBlockOurPrice": "#priceblock_ourprice",
+      "priceBlockDealPrice": "#priceblock_dealprice",
+      "ratingAcr": "#acrPopover .a-icon-alt",
+      "ratingHook": "[data-hook=\"rating-out-of-text\"]",
+      "reviewCount": "#acrCustomerReviewText",
+      "reviewContainer": "#localTopReviewsList",
+      "reviewItems": "[data-hook=\"review\"]",
+      "reviewAuthor": ".a-profile-name",
+      "reviewTitle": "[data-hook=\"review-title\"], [data-hook=\"reviewTitle\"]",
+      "reviewBody": "[data-hook=\"review-body\"], [data-hook=\"reviewRichContentContainer\"]",
+      "reviewStarRating": "[data-hook=\"review-star-rating\"], [data-hook=\"cmps-review-star-rating\"]",
+      "reviewVerifiedBadge": "[data-hook=\"avp-badge\"]",
+      "reviewDate": "[data-hook=\"review-date\"]",
+      "reviewHelpfulVote": "[data-hook=\"helpful-vote-statement\"]",
+      "reviewImageTile": "[data-hook=\"review-image-tile\"], [data-hook=\"review-image-tile-gallery\"]",
+      "reviewVideoWidget": "[data-hook=\"reviewVideo\"]",
+      "reviewVideoDesktop": ".cr-video-desktop",
+      "reviewVideoUrlInput": "input.video-url",
+      "reviewVideoSlateInput": "input.video-slate-img-url",
+      "reviewBodyStrip": "script, style, .video-block, .cr-video-desktop, .review-image-tile-section, .review-image-container",
+      "showMoreReviewsButton": "[data-hook=\"show-more-button\"]",
+      "ratingHistogram": "[data-csa-c-content-id=\"customerReviews\"] #histogramTable a[aria-label*=\"percent of reviews\"]",
+      "insightAspects": "[data-testid=\"aspect-list\"] [role=\"tab\"][aria-label]",
+      "sellerLink": "#sellerProfileTriggerId",
+      "brandSnapshotFacts": ".brand-snapshot-card-content [role='listitem'] p",
+      "navAccountLine": "#nav-link-accountList-nav-line-1",
+      "imagePrimary": "#landingImage",
+      "imageWrapper": "#imgTagWrapperId img",
+      "sponsoredCardSelectors": [
+        ".s-result-item",
+        ".a-carousel-card",
+        "[id^=\"CardInstance\"]",
+        ".a-cardui",
+        "[id^=\"sp_detail\"].a-carousel-container",
+        "[id^=\"sp_desktop\"].a-carousel-container",
+        "[id*=\"sponsoredProducts\" i]",
+        "[data-feature-name*=\"sponsoredProducts\" i]",
+        "[id^=\"desktop-dp-ilm\"]",
+        "[data-feature-name=\"desktop-dp-ilm\"]"
+      ],
+      "carouselCard": ".a-carousel-card",
+      "carouselContainer": ".a-carousel-container",
+      "carouselHeading": "[id$=\"_heading\"], .a-carousel-header-row, h2"
+    },
+    "breadcrumbCategoryMap": [
+      [
+        "shoe",
+        "shoes"
+      ],
+      [
+        "footwear",
+        "shoes"
+      ],
+      [
+        "clothing",
+        "apparel"
+      ],
+      [
+        "fashion",
+        "fashion"
+      ],
+      [
+        "apparel",
+        "apparel"
+      ],
+      [
+        "sport",
+        "sporting"
+      ],
+      [
+        "fitness",
+        "sporting"
+      ],
+      [
+        "outdoor",
+        "sporting"
+      ],
+      [
+        "electronics",
+        "electronics"
+      ],
+      [
+        "computer",
+        "computers"
+      ],
+      [
+        "laptop",
+        "computers"
+      ],
+      [
+        "mobile",
+        "electronics"
+      ],
+      [
+        "camera",
+        "electronics"
+      ],
+      [
+        "television",
+        "electronics"
+      ],
+      [
+        "appliance",
+        "appliances"
+      ],
+      [
+        "beauty",
+        "beauty"
+      ],
+      [
+        "health",
+        "hpc"
+      ],
+      [
+        "personal care",
+        "hpc"
+      ],
+      [
+        "kitchen",
+        "kitchen"
+      ],
+      [
+        "furniture",
+        "furniture"
+      ],
+      [
+        "home",
+        "furniture"
+      ],
+      [
+        "toy",
+        "toys"
+      ],
+      [
+        "baby",
+        "baby"
+      ],
+      [
+        "watch",
+        "watches"
+      ],
+      [
+        "jewel",
+        "jewelry"
+      ],
+      [
+        "luggage",
+        "luggage"
+      ],
+      [
+        "bag",
+        "luggage"
+      ]
+    ],
+    "urlPatterns": {
+      "productPage": "amazon\\.in/(?:[^/]+/)?(?:dp|gp/product|gp/aw/d)/([A-Z0-9]{10})",
+      "reviewPage": "amazon\\.in/product-reviews/([A-Z0-9]{10})"
+    },
+    "reviews": {
+      "urlBase": "https://www.amazon.in/product-reviews/",
+      "params": {
+        "encodingKey": "_encoding",
+        "ieKey": "ie",
+        "commonValue": "UTF8",
+        "pageNumberKey": "pageNumber",
+        "reviewerTypeKey": "reviewerType",
+        "verifiedValue": "avp_only_reviews",
+        "allReviewsValue": "all_reviews",
+        "sortKey": "sortBy",
+        "recentSortValue": "recent",
+        "starFilterKey": "filterByStar",
+        "mediaTypeKey": "mediaType",
+        "mediaOnlyValue": "media_reviews_only"
+      },
+      "starFilter": {
+        "five": "five_star",
+        "four": "four_star",
+        "three": "three_star",
+        "two": "two_star",
+        "one": "one_star"
+      }
+    },
+    "signedOutText": "sign in",
+    "seller": {
+      "profileUrlBase": "/sp?seller=",
+      "linkParamSeller": "seller",
+      "linkParamFulfilled": "isAmazonFulfilled",
+      "fulfilledValue": "1",
+      "selectors": {
+        "stateScript": "script[type=\"a-state\"]",
+        "feedbackRow": ".feedback-row",
+        "feedbackTemplateId": "feedback-row-template",
+        "feedbackStars": ".feedback-stars",
+        "feedbackMain": ".feedback-main",
+        "feedbackText": ".expandable-expanded-text",
+        "feedbackSuppressed": ".feedback-suppressed",
+        "feedbackRater": ".feedback-rater"
+      },
+      "periods": [
+        {
+          "period": "30d",
+          "stateKey": "oneMonthRatingsData",
+          "averageId": "effective-timeperiod-rating-thirty-description"
+        },
+        {
+          "period": "90d",
+          "stateKey": "threeMonthRatingsData",
+          "averageId": "effective-timeperiod-rating-ninety-description"
+        },
+        {
+          "period": "365d",
+          "stateKey": "twelveMonthRatingsData",
+          "averageId": "effective-timeperiod-rating-year-description"
+        },
+        {
+          "period": "lifetime",
+          "stateKey": "lifetimeRatingsData",
+          "averageId": "effective-timeperiod-rating-lifetime-description"
+        }
+      ]
+    },
+    "assistant": {
+      "searchInputId": "dpx-rex-nile-search-text-input",
+      "submitButtonId": "dpx-rex-nile-submit-button-announce",
+      "clearButtonSelector": "[data-action-id=\"clear_button_touch\"]",
+      "responseSelector": ".rufus-dpx-markdown-content",
+      "paragraphSelector": ".rufus-dpx-markdown-paragraph",
+      "listBlockSelector": ".rufus-dpx-markdown-list-block",
+      "priceHistoryPrompt": "Provide current product, daily price history for last 1 month, even if price not changed, format in paragraph - 14 may - 128, 15 may - 128, 16 may - 321 and so on",
+      "prosConsPrompt": "List exactly 3 pros and 3 cons of this product, each about 4 words. Format as two bullet lists titled 'Pros' and 'Cons'."
+    },
+    "pageOverlay": {
+      "bottomSheet": "[data-testid=\"bottomsheet-box\"]",
+      "aspectTabBase": "[data-testid=\"aspect-list\"] [role=\"tab\"]",
+      "reviewsContainer": "[data-csa-c-slot-id=\"dp_desktop_customerReviews_feature_div\"]",
+      "allPhotosTrigger": "span[data-mix-operations=\"CRSeeMoreThumbnailOpsClickHandler\"]",
+      "allPhotosPopover": "[data-action=\"a-popover-a11y\"]",
+      "allPhotosPopoverClose": "[data-action=\"a-popover-close\"]"
+    }
+  },
+  "scrapers": {
+    "croma": {
+      "searchUrl": "https://api.croma.com/searchservices/v1/search",
+      "productUrlBase": "https://www.croma.com",
+      "params": {
+        "currentPage": "0",
+        "fields": "FULL",
+        "channel": "WEB",
+        "channelCode": "400049",
+        "spellOpt": "DEFAULT"
+      }
+    },
+    "reliance": {
+      "searchUrl": "https://www.reliancedigital.in/ext/search/application/api/v1.0/products",
+      "productUrlBase": "https://www.reliancedigital.in/product",
+      "applicationId": "645a057875d8c4882b096f7e",
+      "companyId": "1"
+    },
+    "myntra": {
+      "searchUrlBase": "https://www.myntra.com",
+      "stateVariable": "__myx",
+      "stateResultPath": "searchData.results.products"
+    },
+    "ajio": {
+      "searchUrl": "https://www.ajio.com/api/search",
+      "productUrlBase": "https://www.ajio.com",
+      "params": {
+        "fields": "SITE",
+        "currentPage": "0"
+      }
+    },
+    "meesho": {
+      "searchUrl": "https://www.meesho.com/api/v1/products/search",
+      "productUrlBase": "https://www.meesho.com",
+      "requestType": "text_search"
+    }
+  },
+  "reddit": {
+    "searchUrl": "https://old.reddit.com/search/",
+    "oldUrlBase": "https://old.reddit.com",
+    "modernUrlBase": "https://www.reddit.com",
+    "selectors": {
+      "resultContainer": ".search-result-link",
+      "titleLink": "a.search-title",
+      "subredditLink": "a.search-subreddit-link",
+      "score": ".search-score",
+      "commentsLink": "a.search-comments",
+      "bodyParagraph": ".search-result-body p"
+    }
+  },
+  "youtube": {
+    "searchUrl": "https://www.youtube.com/results",
+    "watchUrlBase": "https://www.youtube.com/watch?v=",
+    "initialDataVariable": "ytInitialData",
+    "resultsSectionPath": "contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents",
+    "queryTemplates": [
+      "{title} review",
+      "{title} unboxing"
+    ]
+  },
+  "thresholds": {
+    "requestTimeoutMs": 10000,
+    "searchResultLimit": 5,
+    "reviewScanPageLimit": 2,
+    "redditRelevanceMinScore": 0.5,
+    "priceHistoryMinPoints": 20,
+    "confidence": {
+      "high": 24,
+      "medium": 8
+    },
+    "buyScore": {
+      "positive": 75,
+      "mixed": 55
+    }
+  }
+}

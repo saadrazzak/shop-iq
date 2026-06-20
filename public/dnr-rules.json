@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "referer", "operation": "set", "value": "https://www.croma.com/" },
+        { "header": "origin", "operation": "set", "value": "https://www.croma.com" }
+      ]
+    },
+    "condition": { "urlFilter": "||croma.com", "resourceTypes": ["xmlhttprequest", "other"] }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "referer", "operation": "set", "value": "https://www.reliancedigital.in/" },
+        { "header": "origin", "operation": "set", "value": "https://www.reliancedigital.in" }
+      ]
+    },
+    "condition": { "urlFilter": "||reliancedigital.in", "resourceTypes": ["xmlhttprequest", "other"] }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "referer", "operation": "set", "value": "https://www.ajio.com/" },
+        { "header": "origin", "operation": "set", "value": "https://www.ajio.com" }
+      ]
+    },
+    "condition": { "urlFilter": "||ajio.com", "resourceTypes": ["xmlhttprequest", "other"] }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "referer", "operation": "set", "value": "https://www.meesho.com/" },
+        { "header": "origin", "operation": "set", "value": "https://www.meesho.com" }
+      ]
+    },
+    "condition": { "urlFilter": "||meesho.com", "resourceTypes": ["xmlhttprequest", "other"] }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [{ "header": "referer", "operation": "set", "value": "https://www.myntra.com/" }]
+    },
+    "condition": { "urlFilter": "||myntra.com", "resourceTypes": ["xmlhttprequest", "other"] }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "referer", "operation": "set", "value": "https://old.reddit.com/" },
+        { "header": "accept", "operation": "set", "value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" },
+        { "header": "accept-language", "operation": "set", "value": "en-US,en;q=0.9" }
+      ]
+    },
+    "condition": { "urlFilter": "||old.reddit.com", "resourceTypes": ["xmlhttprequest", "other"] }
+  }
+]

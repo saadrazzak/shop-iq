@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* ShopIQ design tokens - "Brand Blue" theme (navy-blue header, blue tabs/hero,
+   light blue surface, coral accent, neutral grays). This @theme block is the single source of
+   truth for the overlay's colors: it generates `bg-shopiq-*`, `text-shopiq-*`,
+   `border-shopiq-*`, `fill-shopiq-*` and `stroke-shopiq-*` Tailwind utilities,
+   and `overlay/lib/palette.ts` reads most of these same tokens via `var()` for
+   the few places that need raw JS values (SVG fills, conic-gradients, etc.).
+   To retheme (including adding a dark-mode variant), edit the values here -
+   everything else updates automatically. */
+@theme {
+  /* Core palette */
+  --color-shopiq-cream: #e5e7eb;
+  --color-shopiq-cream-soft: #f3f4f6;
+  --color-shopiq-slate: #9ca3af;
+  --color-shopiq-brand: #2d6cdf;
+  --color-shopiq-brand-strong: #1e4fb8;
+  --color-shopiq-brand-soft: #e8f0fe;
+  --color-shopiq-brand-border: #bfdbfe;
+  --color-shopiq-brand-foreground: #ffffff;
+  --color-shopiq-brand-foreground-muted: #d6e4fb;
+  --color-shopiq-accent: #ff6b4a;
+  --color-shopiq-accent-strong: #c2451f;
+  --color-shopiq-accent-soft: #ffe4db;
+  --color-shopiq-accent-border: #ffc7b8;
+
+  /* Hero (product card) accent */
+  --color-shopiq-hero: #2d6cdf;
+  --color-shopiq-hero-foreground: #ffffff;
+
+  /* Neutrals */
+  --color-shopiq-ink: #1f2937;
+  --color-shopiq-body: #4b5563;
+  --color-shopiq-muted: #6b7280;
+  --color-shopiq-faint: #9ca3af;
+
+  /* Surfaces */
+  --color-shopiq-surface: #eef2f7;
+  --color-shopiq-panel: #ffffff;
+  --color-shopiq-border: #e4e4e7;
+
+  /* Chrome */
+  --color-shopiq-header: #1e3a8a;
+  --color-shopiq-header-foreground: #f4f4f5;
+  --color-shopiq-tab-bar: #e8f0fe;
+  --color-shopiq-tab-active: #2d6cdf;
+}
+
+@layer base {
+  :root {
+    color: var(--color-shopiq-ink);
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    /* Shared drop shadow for cards, the hero, the price bar, and the launcher
+       button - applied via inline `style` (see Card/ProductHero/PriceBar/
+       LauncherButton) so it can't be dropped by the Tailwind utility cascade. */
+    --shopiq-shadow-card: 0px 2px 6px rgba(0, 0, 0, 0.47);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  button {
+    font: inherit;
+    appearance: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(38, 50, 58, 0.18);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+@keyframes shopiq-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shopiq-toast-in {
+  animation: shopiq-toast-in 0.25s ease-out;
+}
+
+/* Keeps the overlay body scrollable but hides the scrollbar chrome (so expanding
+   a collapsible section doesn't flash a scrollbar / shift layout). */
+.shopiq-no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.shopiq-no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Gentle one-time attention pulse for the launcher when it appears, then rests
+   back to its static shadow (set via inline style on the button). */
+@keyframes shopiq-launcher-pulse {
+  0% {
+    box-shadow: -2px 3px 14px rgba(30, 79, 184, 0.5), 0 0 0 0 rgba(45, 108, 223, 0.55);
+  }
+  70% {
+    box-shadow: -2px 3px 14px rgba(30, 79, 184, 0.5), 0 0 0 13px rgba(45, 108, 223, 0);
+  }
+  100% {
+    box-shadow: -2px 3px 14px rgba(30, 79, 184, 0.5), 0 0 0 0 rgba(45, 108, 223, 0);
+  }
+}
+
+.shopiq-launcher-pulse {
+  animation: shopiq-launcher-pulse 1.8s ease-out 2;
+}

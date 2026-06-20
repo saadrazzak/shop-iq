@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "name": "ShopIQ",
+  "description": "AI-powered buy recommendation for Amazon India product pages.",
+  "version": "1.0.0",
+  "icons": {
+    "16": "public/icons/icon-16.png",
+    "32": "public/icons/icon-32.png",
+    "48": "public/icons/icon-48.png",
+    "128": "public/icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Open ShopIQ",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "public/icons/icon-16.png",
+      "32": "public/icons/icon-32.png",
+      "48": "public/icons/icon-48.png",
+      "128": "public/icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/background.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.amazon.in/*",
+        "https://amazon.in/*"
+      ],
+      "js": [
+        "src/content/content.tsx"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "declarativeNetRequest"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "retailer_headers",
+        "enabled": true,
+        "path": "dnr-rules.json"
+      }
+    ]
+  },
+  "host_permissions": [
+    "https://www.amazon.in/*",
+    "https://amazon.in/*",
+    "https://api.croma.com/*",
+    "https://www.croma.com/*",
+    "https://www.reliancedigital.in/*",
+    "https://www.ajio.com/*",
+    "https://www.meesho.com/*",
+    "https://www.myntra.com/*",
+    "https://old.reddit.com/*",
+    "https://www.reddit.com/*",
+    "https://www.youtube.com/*"
+  ]
+}
