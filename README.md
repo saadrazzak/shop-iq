@@ -1,25 +1,26 @@
-# ShopIQ — buy assistant for Amazon India
+# ShopIQ: buy assistant for Amazon India
 
-ShopIQ is a Chrome (Manifest V3) extension, a buying
-assistant on Amazon India product pages. It reads the live page (price, rating
-histogram, "Customers say" aspects, reviews), scores the product, pulls 30-day
-price history **and pros/cons** from Amazon's on-page AI assistant (Rufus),
+ShopIQ is a Chrome (Manifest V3) extension that adds a buying assistant to
+Amazon India product pages. It reads the live page (price, rating histogram,
+"Customers say" aspects, reviews), scores the product, and pulls 30-day price
+history **and pros/cons** from Amazon's on-page AI assistant (Rufus). It also
 shows a **seller trust scorecard**, lets you **browse review photos & videos**,
-and surfaces retailer price comparisons and Reddit/YouTube discussion — all in a
-single in-page overlay.
+and surfaces retailer price comparisons plus Reddit/YouTube discussion, all in
+a single in-page overlay.
 
-> **No redirects.** Features that need data from another Amazon page — the
-> seller scorecard (`/sp`) and "Analyze more reviews" (`/product-reviews/…`) —
-> `fetch()` that page (same-origin, with the user's cookies) and parse the HTML
-> in memory with `DOMParser`. The tab never navigates. Results are cached in
-> `chrome.storage.local` (seller 24h, price history 12h).
+> **No redirects.** Features that need data from another Amazon page (the
+> seller scorecard at `/sp` and "Analyze more reviews" at `/product-reviews/…`)
+> `fetch()` that page instead, same-origin and with the user's cookies, then
+> parse the HTML in memory with `DOMParser`. The tab never navigates. Results
+> are cached in `chrome.storage.local` (seller 24h, price history 12h).
 
-> **Self-contained — no server required.** Review analysis and the retailer /
-> Reddit / YouTube scraping all run inside the extension's background service
-> worker (`src/background/scraping/`). Cross-origin scraping works because the
-> worker holds `host_permissions` for those domains, and a `declarativeNetRequest`
-> ruleset (`public/dnr-rules.json`) sets each retailer's own `Referer`/`Origin`
-> on the outgoing requests. There's no backend and no API key.
+> **Self-contained, no server required.** Review analysis and the retailer,
+> Reddit, and YouTube scraping all run inside the extension's background
+> service worker (`src/background/scraping/`). Cross-origin scraping works
+> because the worker holds `host_permissions` for those domains, and a
+> `declarativeNetRequest` ruleset (`public/dnr-rules.json`) sets each
+> retailer's own `Referer`/`Origin` on the outgoing requests. There's no
+> backend and no API key.
 
 ## Getting started
 
@@ -71,21 +72,21 @@ The extension has four execution contexts that talk over `chrome` messaging:
 └─────────────┘
 ```
 
-- **`src/content/`** — runs in the Amazon page. Scrapes product/review data
+- **`src/content/`**: runs in the Amazon page. Scrapes product/review data
   including review photos & videos (`amazon.ts`), mounts the React overlay in a
   shadow DOM (`overlay-mount.tsx`), and handles sponsored cards
   (`remove-sponsored.ts`: cover / remove modes). The entry (`content.tsx`)
   re-runs on a debounced DOM-mutation observer and relays messages to the
   background.
-- **`src/background/`** — the MV3 service worker. `background.ts` is a thin
+- **`src/background/`**: the MV3 service worker. `background.ts` is a thin
   message router; each message is handled by a focused function in
   `handlers/*`. Per-tab product/UI/scan state lives in `state.ts` (in-memory
   Maps mirrored to `chrome.storage.session` so it survives SW restarts and page
   navigations). `api.ts` is the seam the handlers call; it runs the local
-  heuristic analysis and the retailer/Reddit/YouTube scrapers in
-  `scraping/` (ported from the old backend — `fetch` + cheerio, cached in
+  heuristic analysis and the retailer/Reddit/YouTube scrapers in `scraping/`
+  (ported from the old backend, using `fetch` + cheerio, cached in
   `chrome.storage.local`). Pure helpers in `lib/`.
-- **`src/overlay/`** — the React UI injected into the page. `OverlayRoot` shows
+- **`src/overlay/`**: the React UI injected into the page. `OverlayRoot` shows
   a launcher when closed and the tabbed `App` when open (Summary, Price History,
   Reviews, Social, Settings). The Summary tab carries the buy-score verdict,
   collapsible Pros/Cons, and a collapsible **Seller** scorecard; review photos/
@@ -93,12 +94,12 @@ The extension has four execution contexts that talk over `chrome` messaging:
   Amazon pages directly (`sellerRating.ts`, `reviewScan.ts`) and float on-page
   elements behind a dimmed scrim (`pageOverlay.ts`); the rest derive view-models
   from already-extracted data. Data comes from hooks (`hooks/`).
-- **`src/popup/`** — the toolbar popup: toggles (auto-open, sponsored-ad
-  handling) and an "Open ShopIQ" button.
-- **`src/shared/`** — the cross-context contract: the `ExtensionMessage` union
-  and data types (`types.ts`), constants/URL patterns (`constants.ts`), the
-  review-URL builder (`reviewUrl.ts`), thin messaging wrappers (`messaging.ts`),
-  and pure formatters (`utils/`).
+- **`src/popup/`**: the toolbar popup, with toggles (auto-open, sponsored-ad
+  handling), an "Open ShopIQ" button, and a privacy policy link.
+- **`src/shared/`**: the cross-context contract, covering the
+  `ExtensionMessage` union and data types (`types.ts`), constants/URL patterns
+  (`constants.ts`), the review-URL builder (`reviewUrl.ts`), thin messaging
+  wrappers (`messaging.ts`), and pure formatters (`utils/`).
 
 ### Everything site-specific lives in config
 
@@ -107,13 +108,14 @@ The extension has four execution contexts that talk over `chrome` messaging:
 > `src/config/default-config.json`, type it in `src/config/types.ts`, and read it
 > via `getConfig()`.
 
-Every selector, URL, query-param, and page-specific string ShopIQ depends on —
-the PDP scrapers, review markup, the seller profile (`/sp`) parser, the Rufus AI
-assistant controls (including the prompts sent to Rufus), the review-photo
-gallery trigger, the on-page peek overlays, and the retailer / Reddit / YouTube
-scrapers — is declared in `src/config/default-config.json` (typed by
-`src/config/types.ts`). Nothing third-party is hardcoded in component or lib
-code, so when a site changes its markup you fix it in one JSON file instead of
+Every selector, URL, query-param, and page-specific string ShopIQ depends on,
+including the PDP scrapers, review markup, the seller profile (`/sp`) parser,
+the Rufus AI assistant controls (including the prompts sent to Rufus), the
+review-photo gallery trigger, the on-page peek overlays, and the retailer /
+Reddit / YouTube scrapers, is declared in `src/config/default-config.json`
+(typed by `src/config/types.ts`). Nothing third-party is hardcoded in
+component or lib code, so when a site changes its markup you fix it in one
+JSON file instead of
 hunting through the source.
 
 `getConfig()` is a synchronous accessor that returns this bundled config, so the
@@ -123,7 +125,7 @@ launcher and overlay mount instantly and no `getConfig().…` access can throw.
 
 ### The review scan (no navigation)
 
-"Analyze more reviews" crawls additional Amazon review pages **in place** — the
+"Analyze more reviews" crawls additional Amazon review pages **in place**: the
 tab never leaves the product page. `useProductState.analyzeMoreReviews` calls
 `overlay/lib/reviewScan.ts`, which `fetch()`es each `/product-reviews/…?pageNumber=N`
 URL (built by `shared/reviewUrl.ts` from the chosen sort/star/verified/media
@@ -153,7 +155,7 @@ shares. Several things keep it fast and unblocked:
   element is `content-visibility: hidden` (we read `textContent`, never paint it)
   and we poll on `requestIdleCallback`, so Rufus's own work gets the main thread.
 - **Deferred heavy work.** Retailer-price and Reddit/YouTube scrapes wait until
-  the price-history request settles (or a short cap elapses) before firing — see
+  the price-history request settles (or a short cap elapses) before firing; see
   `heavyAllowed` in `App.tsx` and the `enabled` gate on `useComparisons`/
   `usePrices`. The seller scorecard is lazy-loaded only when its card first renders.
 
@@ -191,12 +193,12 @@ src/
 ```
 
 The overlay deliberately uses an **atoms / components** split with no
-intermediate "molecules" layer — feature complexity lives in the per-tab
+intermediate "molecules" layer; feature complexity lives in the per-tab
 component folders.
 
 ## Disclaimer
 
-ShopIQ is an independent, unofficial project — not affiliated with, endorsed by,
+ShopIQ is an independent, unofficial project, not affiliated with, endorsed by,
 or connected to Amazon or any other retailer named here. It reads and automates
 pages in your own logged-in browser session, for personal use.
 
