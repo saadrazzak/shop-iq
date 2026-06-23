@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ShopIQ — Privacy Policy</title>
+<style>
+  :root {
+    --ink: #1a1f2b;
+    --body: #3c4456;
+    --faint: #6b7280;
+    --border: #e5e7eb;
+    --brand: #2563eb;
+    --bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--body);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  h1 {
+    color: var(--ink);
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+  .updated {
+    color: var(--faint);
+    font-size: 13px;
+    margin-bottom: 32px;
+  }
+  h2 {
+    color: var(--ink);
+    font-size: 18px;
+    margin-top: 36px;
+    margin-bottom: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  p, li { font-size: 15px; }
+  ul { padding-left: 22px; }
+  code {
+    background: #f3f4f6;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .summary {
+    background: #f0f6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 8px;
+    font-size: 14.5px;
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--faint);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ShopIQ Privacy Policy</h1>
+  <p class="updated">Last updated: June 23, 2026</p>
+
+  <div class="summary">
+    <strong>In short:</strong> ShopIQ has no server, no account/sign-up, and no analytics or tracking
+    of any kind. Everything it reads stays on your device, in your browser's local storage. Nothing
+    is ever sent to us, because there is no "us" to send it to — there is no backend.
+  </div>
+
+  <h2>What ShopIQ is</h2>
+  <p>
+    ShopIQ is a Chrome extension that adds a buying-assistant overlay to Amazon India product pages —
+    showing a buy-score, price history, seller trust info, review browsing, and price/discussion
+    comparisons from other retailers. All of this logic runs locally inside the extension installed in
+    your browser.
+  </p>
+
+  <h2>Data ShopIQ reads</h2>
+  <p>When you're on an Amazon India product or review page, ShopIQ's content script reads what's already rendered on that page in your browser, such as:</p>
+  <ul>
+    <li>Product title, price, rating, and the "Customers say" summary</li>
+    <li>Review text, ratings, and attached photos/videos</li>
+    <li>Seller name and Amazon's seller-rating page (fetched the same way your browser would if you clicked the seller link)</li>
+  </ul>
+  <p>
+    This data is read directly from pages you are already viewing in your own browser session, using
+    your existing Amazon cookies the same way the Amazon page itself does. It is never transmitted to
+    any server we operate, because none exists.
+  </p>
+
+  <h2>Why ShopIQ requests access to other websites</h2>
+  <p>
+    ShopIQ's manifest lists permissions for Croma, Reliance Digital, Ajio, Meesho, Myntra, Reddit, and
+    YouTube. These are used only to fetch publicly available price listings and discussion threads for
+    the specific product you're currently viewing, so ShopIQ can show comparison prices and related
+    community discussion in the overlay. Each request sends only a short search query built from the
+    product's name (e.g. <code>"Apple 2023 MacBook Pro"</code>) — never your identity, account, browsing
+    history, or anything else about you.
+  </p>
+  <p>
+    These sites are independent of ShopIQ; any data they receive is handled under their own privacy
+    policies, not this one.
+  </p>
+
+  <h2>Local storage</h2>
+  <p>
+    ShopIQ stores a few things in <code>chrome.storage.local</code>, entirely on your device:
+  </p>
+  <ul>
+    <li>Your settings (e.g. auto-open overlay, sponsored-ad handling mode)</li>
+    <li>Short-lived caches (seller trust info for 24 hours, price history for 12 hours) so the overlay
+      doesn't re-fetch the same data repeatedly</li>
+  </ul>
+  <p>
+    This data never leaves your browser. Uninstalling the extension removes it.
+  </p>
+
+  <h2>Tabs and messaging</h2>
+  <p>
+    ShopIQ uses the browser tab APIs only to talk to its own overlay in your current tab, and — during
+    an optional "analyze more reviews" scan — to navigate that tab to Amazon's own review page and back,
+    the same pages you could open yourself. No tab content is sent anywhere outside your browser.
+  </p>
+
+  <h2>No remote code</h2>
+  <p>
+    All code ShopIQ runs ships inside the extension package you install. It does not download or
+    execute any code at runtime.
+  </p>
+
+  <h2>No account, no sign-up</h2>
+  <p>ShopIQ does not require you to create an account, sign in, or provide any personal information to use it.</p>
+
+  <h2>Children's privacy</h2>
+  <p>ShopIQ is not directed at children and does not knowingly collect information from children.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If this policy changes, the "Last updated" date above will change accordingly.</p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this policy or the extension can be filed at
+    <a href="https://github.com/saadrazzak/shop-iq/issues" target="_blank" rel="noreferrer">github.com/saadrazzak/shop-iq/issues</a>.
+  </p>
+
+  <footer>ShopIQ — an independent project, not affiliated with Amazon.</footer>
+</div>
+</body>
+</html>
