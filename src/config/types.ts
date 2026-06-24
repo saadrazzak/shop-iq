@@ -54,6 +54,8 @@ export interface AmazonAssistantConfig {
   paragraphSelector: string;
   listBlockSelector: string;
   priceHistoryPrompt: string;
+  /** Separate, on-demand prompt for each week's lowest price over the last year (the 1-year tab) - the weekly low rather than an arbitrary daily snapshot, so a brief mid-week sale isn't missed at this sparser resolution. */
+  priceHistoryYearlyPrompt: string;
   prosConsPrompt: string;
 }
 
@@ -220,6 +222,8 @@ export interface ThresholdsConfig {
   redditRelevanceMinScore: number;
   /** Minimum daily entries before an AI price-history response is treated as a real list. */
   priceHistoryMinPoints: number;
+  /** Minimum weekly entries before the on-demand 1-year response is treated as a real list. */
+  priceHistoryYearlyMinPoints: number;
   confidence: { high: number; medium: number };
   buyScore: { positive: number; mixed: number };
 }

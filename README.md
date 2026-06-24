@@ -2,8 +2,8 @@
 
 ShopIQ is a Chrome (Manifest V3) extension that adds a buying assistant to
 Amazon India product pages. It reads the live page (price, rating histogram,
-"Customers say" aspects, reviews), scores the product, and pulls 30-day price
-history **and pros/cons** from Amazon's on-page AI assistant (Rufus). It also
+"Customers say" aspects, reviews), scores the product, and pulls up to a year
+of price history **and pros/cons** from Amazon's on-page AI assistant (Rufus). It also
 shows a **seller trust scorecard**, lets you **browse review photos & videos**,
 and surfaces retailer price comparisons plus Reddit/YouTube discussion, all in
 a single in-page overlay.

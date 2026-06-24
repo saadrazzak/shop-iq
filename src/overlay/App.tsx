@@ -10,6 +10,7 @@ import { SettingsTab } from "./components/settings/SettingsTab";
 import { useComparisons } from "./hooks/useComparisons";
 import { usePrices } from "./hooks/usePrices";
 import type { usePriceHistory } from "./hooks/usePriceHistory";
+import type { useYearlyPriceHistory } from "./hooks/useYearlyPriceHistory";
 import { getAverageRating } from "./lib/insights";
 import { formatCurrency, parseNumericValue } from "../shared/utils/format";
 import type { ProductState, ReviewScanOptions, ReviewScanProgress, ScanResult } from "../shared/types";
@@ -26,6 +27,8 @@ type AppProps = {
   analyzeSnapshot: () => Promise<void>;
   analyzeMoreReviews: (options: ReviewScanOptions) => Promise<void>;
   priceHistory: ReturnType<typeof usePriceHistory>;
+  /** Separate, on-demand weekly history for the 1-year tab - never auto-fetched. */
+  yearlyPriceHistory: ReturnType<typeof useYearlyPriceHistory>;
   /** Whether the user has consented to querying Amazon's AI assistant (Rufus). */
   rufusEnabled: boolean;
   /** Grants Rufus consent (from the in-tab consent prompts). */
@@ -43,6 +46,7 @@ export default function App({
   analyzeSnapshot,
   analyzeMoreReviews,
   priceHistory,
+  yearlyPriceHistory,
   rufusEnabled,
   onEnableRufus,
   activeTab,
@@ -112,6 +116,8 @@ export default function App({
           <PriceHistoryTab
             state={priceHistory.state}
             onRefresh={priceHistory.refresh}
+            yearlyState={yearlyPriceHistory.state}
+            onLoadYearly={yearlyPriceHistory.load}
             prices={prices}
             currentPrice={currentPrice}
             onRefreshPrices={prices.refresh}

@@ -74,7 +74,7 @@
 <body>
 <div class="wrap">
   <h1>ShopIQ Privacy Policy</h1>
-  <p class="updated">Last updated: June 23, 2026</p>
+  <p class="updated">Last updated: June 24, 2026</p>
 
   <div class="summary">
     <strong>In short:</strong> ShopIQ has no server, no account or sign-up, and no analytics or
@@ -103,6 +103,21 @@
     any server we operate, because none exists.
   </p>
 
+  <h2>Price history and pros/cons (Amazon's own AI assistant)</h2>
+  <p>
+    If you turn on "Use Amazon AI" in settings, ShopIQ asks Amazon's own on-page assistant
+    (Rufus) for this product's price history and/or a quick pros/cons summary, the same thing you
+    could do yourself by typing into Rufus. ShopIQ enters a short prompt into Rufus's search box,
+    submits it, and reads the text Rufus displays back, then shows that as a chart or a list in the
+    overlay. This is off by default; you have to turn it on.
+  </p>
+  <p>
+    This happens entirely inside your browser, using Rufus exactly as it already exists on the
+    page. The prompts and Rufus's responses are never sent to ShopIQ or anyone else - only cached
+    on your device (12 hours for pros/cons and the recent-months price view, 24 hours for the
+    1-year price view) so the same question isn't asked repeatedly.
+  </p>
+
   <h2>Why ShopIQ requests access to other websites</h2>
   <p>
     ShopIQ's manifest lists permissions for Croma, Reliance Digital, Ajio, Meesho, Myntra, Reddit, and
@@ -123,7 +138,8 @@
   </p>
   <ul>
     <li>Your settings (e.g. auto-open overlay, sponsored-ad handling mode)</li>
-    <li>Short-lived caches (seller trust info for 24 hours, price history for 12 hours) so the overlay
+    <li>Short-lived caches (seller trust info for 24 hours, recent price history for 12 hours, the
+      1 year price view for 24 hours) so the overlay
       doesn't re-fetch the same data repeatedly</li>
   </ul>
   <p>

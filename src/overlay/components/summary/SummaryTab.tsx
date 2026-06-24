@@ -73,7 +73,7 @@ export function SummaryTab({
     <div data-testid="shopiq-summary-tab" className="flex flex-col gap-3 p-3.5">
       <ProductHero product={product} onViewPriceHistory={onViewPriceHistory} />
       <WorthBuyingCard
-        verdict={getWorthBuyingVerdict(product, analysis, priceTone)}
+        verdict={getWorthBuyingVerdict(product, analysis, priceTone, priceData?.stats.windowDays)}
         tags={getInsightTags(product, analysis)}
         product={product}
         averageRating={averageRating}
