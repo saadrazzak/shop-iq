@@ -1,8 +1,13 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Ban, PanelRight, Sparkles, Zap } from "lucide-react";
+import { Ban, PanelRight, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { Logo } from "../overlay/atoms/Logo";
 import { Button } from "../overlay/atoms/Button";
-import { AUTO_OPEN_STORAGE_KEY, RUFUS_ENABLED_STORAGE_KEY, SPONSORED_MODE_KEY } from "../shared/constants";
+import {
+  AUTO_OPEN_STORAGE_KEY,
+  PRIVACY_POLICY_URL,
+  RUFUS_ENABLED_STORAGE_KEY,
+  SPONSORED_MODE_KEY
+} from "../shared/constants";
 
 async function getActiveTab(): Promise<chrome.tabs.Tab | undefined> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -155,6 +160,16 @@ export function Popup() {
           Visit an Amazon India page to open ShopIQ.
         </p>
       ) : null}
+
+      <a
+        href={PRIVACY_POLICY_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center justify-center gap-1.5 border-t border-shopiq-border pt-2.5 text-[11px] font-medium text-shopiq-brand hover:text-shopiq-brand-strong"
+      >
+        <ShieldCheck className="h-3 w-3" />
+        Privacy policy
+      </a>
     </div>
   );
 }

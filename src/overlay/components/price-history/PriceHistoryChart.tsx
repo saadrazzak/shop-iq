@@ -17,7 +17,12 @@ Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointEle
 
 type PriceHistoryChartProps = {
   points: PricePoint[];
+  /** Canvas height in px. Defaults to the compact inline size; the expanded overlay passes a larger value, which also scales up the hover tooltip and axis text. */
+  height?: number;
 };
+
+/** Above this height the chart is treated as the "big" expanded-overlay view, so the hover tooltip and axis text scale up to match. */
+const LARGE_CHART_HEIGHT = 300;
 
 /** Reads a `--color-shopiq-*` custom property as a literal color, falling back if unresolved (canvas can't use `var()`). */
 function readColor(element: Element, name: string, fallback: string): string {
@@ -49,8 +54,41 @@ function createCrosshairPlugin(color: string): Plugin<"line"> {
   };
 }
 
-/** Line chart of daily prices, with the lowest point highlighted in the accent color. Hovering anywhere over the chart shows a crosshair and the price for that date. */
-export function PriceHistoryChart({ points }: PriceHistoryChartProps) {
+/** Marks today's price with a solid dot, since per-point dots are otherwise turned off to avoid clutter on long (3-month+) series. */
+function createNowBadgePlugin(dotColor: string, labelColor: string, fontSize: number): Plugin<"line"> {
+  return {
+    id: "shopiqNowBadge",
+    afterDatasetsDraw(chart) {
+      const meta = chart.getDatasetMeta(0);
+      const point = meta.data[meta.data.length - 1];
+      if (!point) return;
+
+      const { ctx } = chart;
+      ctx.save();
+      ctx.font = `600 ${fontSize}px sans-serif`;
+      ctx.fillStyle = labelColor;
+      ctx.textAlign = "right";
+      ctx.fillStyle = dotColor;
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, fontSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+}
+
+/**
+ * Clean, minimal line chart of daily prices: a single-color smooth filled
+ * line (no per-point dots, which got noisy on long series), a dashed gray
+ * reference line at the average price for context, and one solid dot
+ * marking today's price. Hovering anywhere shows a crosshair and a tooltip
+ * — both scale up on the larger expanded-overlay chart (`height` >=
+ * `LARGE_CHART_HEIGHT`).
+ */
+export function PriceHistoryChart({ points, height = 180 }: PriceHistoryChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<Chart<"line"> | null>(null);
 
@@ -60,10 +98,14 @@ export function PriceHistoryChart({ points }: PriceHistoryChartProps) {
     if (!canvas || !ctx) return;
 
     const brand = readColor(canvas, "--color-shopiq-brand", "#2d6cdf");
-    const accent = readColor(canvas, "--color-shopiq-accent", "#ff6b4a");
     const ink = readColor(canvas, "--color-shopiq-ink", "#1f2937");
     const slate = readColor(canvas, "--color-shopiq-slate", "#9ca3af");
-    const lowestPrice = Math.min(...points.map((point) => point.price));
+
+    const prices = points.map((point) => point.price);
+    const average = prices.reduce((sum, price) => sum + price, 0) / prices.length;
+    const isLarge = height >= LARGE_CHART_HEIGHT;
+    const axisFontSize = isLarge ? 11 : 9;
+    const nowBadgeFontSize = isLarge ? 13 : 10;
 
     chartRef.current = new Chart(ctx, {
       type: "line",
@@ -71,18 +113,26 @@ export function PriceHistoryChart({ points }: PriceHistoryChartProps) {
         labels: points.map((point) => point.label),
         datasets: [
           {
-            data: points.map((point) => point.price),
+            data: prices,
             borderColor: brand,
-            backgroundColor: `${brand}1f`,
-            pointBackgroundColor: points.map((point) => (point.price === lowestPrice ? accent : brand)),
-            pointRadius: points.map((point) => (point.price === lowestPrice ? 4 : 1.5)),
-            pointHoverRadius: 5,
+            backgroundColor: `${brand}1a`,
+            borderWidth: isLarge ? 3 : 2,
+            pointRadius: 0,
+            pointHoverRadius: isLarge ? 6 : 5,
             pointHoverBackgroundColor: brand,
             pointHoverBorderColor: "#fff",
             pointHoverBorderWidth: 2,
-            borderWidth: 2,
-            tension: 0.3,
+            tension: 0.25,
             fill: true
+          },
+          {
+            data: prices.map(() => average),
+            borderColor: slate,
+            borderWidth: 1,
+            borderDash: [4, 4],
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            fill: false
           }
         ]
       },
@@ -98,11 +148,14 @@ export function PriceHistoryChart({ points }: PriceHistoryChartProps) {
             displayColors: false,
             backgroundColor: ink,
             titleColor: slate,
-            titleFont: { size: 10, weight: "normal" },
+            titleFont: { size: isLarge ? 13 : 10, weight: "normal" },
             bodyColor: "#fff",
-            bodyFont: { size: 12, weight: "bold" },
-            padding: 8,
-            cornerRadius: 6,
+            bodyFont: { size: isLarge ? 16 : 12, weight: "bold" },
+            padding: isLarge ? 12 : 8,
+            cornerRadius: isLarge ? 8 : 6,
+            // Only the price line gets a tooltip entry - the average-price
+            // reference line would just repeat the same number every time.
+            filter: (item) => item.datasetIndex === 0,
             callbacks: {
               title: (items) => items[0]?.label ?? "",
               label: (context) => formatCurrency(context.parsed.y ?? undefined)
@@ -112,25 +165,25 @@ export function PriceHistoryChart({ points }: PriceHistoryChartProps) {
         scales: {
           x: {
             grid: { display: false },
-            ticks: { maxRotation: 0, autoSkip: true, font: { size: 9 } }
+            ticks: { maxRotation: 0, autoSkip: true, font: { size: axisFontSize } }
           },
           y: {
             grid: { color: "rgba(0, 0, 0, 0.05)" },
-            ticks: { font: { size: 9 }, callback: (value) => `₹${value}` }
+            ticks: { font: { size: axisFontSize }, callback: (value) => `₹${value}` }
           }
         }
       },
-      plugins: [createCrosshairPlugin(`${brand}66`)]
+      plugins: [createCrosshairPlugin(`${brand}66`), createNowBadgePlugin(brand, ink, nowBadgeFontSize)]
     });
 
     return () => {
       chartRef.current?.destroy();
       chartRef.current = null;
     };
-  }, [points]);
+  }, [points, height]);
 
   return (
-    <div data-testid="shopiq-price-history-chart" className="mt-1" style={{ height: 180 }}>
+    <div data-testid="shopiq-price-history-chart" className="mt-1" style={{ height }}>
       <canvas ref={canvasRef} />
     </div>
   );

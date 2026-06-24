@@ -19,7 +19,9 @@ export function SegmentedControl<T extends string>({
 }: SegmentedControlProps<T>) {
   return (
     <div className="mb-2.5">
-      <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-shopiq-muted">{label}</p>
+      {label ? (
+        <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-shopiq-muted">{label}</p>
+      ) : null}
       <div className="flex gap-1 rounded-lg bg-shopiq-cream-soft p-1">
         {options.map((option) => {
           const active = option.id === value;

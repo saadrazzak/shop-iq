@@ -241,7 +241,8 @@
       "responseSelector": ".rufus-dpx-markdown-content",
       "paragraphSelector": ".rufus-dpx-markdown-paragraph",
       "listBlockSelector": ".rufus-dpx-markdown-list-block",
-      "priceHistoryPrompt": "Provide current product, daily price history for last 1 month, even if price not changed, format in paragraph - 14 may - 128, 15 may - 128, 16 may - 321 and so on",
+      "priceHistoryPrompt": "Please provide current product daily price for the last 3 months, format in one paragraph, like \"29 Mar: ₹999, 30 Mar: ₹999, 1 Apr: ₹988..\"",
+      "priceHistoryYearlyPrompt": "Please provide current product weekly low price for the last 1 year, format in one paragraph, like \"29 Mar: ₹999, 5 Apr: ₹999, 12 Apr: ₹988..\"",
       "prosConsPrompt": "List exactly 3 pros and 3 cons of this product, each about 4 words. Format as two bullet lists titled 'Pros' and 'Cons'."
     },
     "pageOverlay": {
@@ -319,6 +320,7 @@
     "reviewScanPageLimit": 2,
     "redditRelevanceMinScore": 0.5,
     "priceHistoryMinPoints": 20,
+    "priceHistoryYearlyMinPoints": 6,
     "confidence": {
       "high": 24,
       "medium": 8

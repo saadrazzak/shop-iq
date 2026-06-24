@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ShopIQ",
-  "description": "AI-powered buy recommendation for Amazon India product pages.",
+  "description": "Buy assistant for Amazon India.",
   "version": "1.0.0",
   "icons": {
     "16": "public/icons/icon-16.png",
@@ -38,7 +38,6 @@
   "permissions": [
     "activeTab",
     "storage",
-    "tabs",
     "declarativeNetRequest"
   ],
   "declarative_net_request": {

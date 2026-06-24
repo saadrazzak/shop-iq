@@ -19,3 +19,6 @@ export const SPONSORED_COUNTER_KEY = "shopiq:sponsored-counter";
  * `false`, so ShopIQ never sends a prompt to Rufus until the user enables it.
  */
 export const RUFUS_ENABLED_STORAGE_KEY = "shopiq:rufus-enabled";
+
+/** Hosted privacy policy, linked from the toolbar popup. */
+export const PRIVACY_POLICY_URL = "https://saadrazzak.github.io/shop-iq/privacy.html";

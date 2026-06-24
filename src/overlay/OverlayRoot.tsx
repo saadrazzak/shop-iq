@@ -5,6 +5,7 @@ import { PriceAlertBadge } from "./components/price-history/PriceAlertBadge";
 import type { TabId } from "./components/tabs";
 import { useProductState } from "./hooks/useProductState";
 import { usePriceHistory } from "./hooks/usePriceHistory";
+import { useYearlyPriceHistory } from "./hooks/useYearlyPriceHistory";
 import { useRufusConsent } from "./hooks/useRufusConsent";
 import type { ExtensionMessage } from "../shared/types";
 
@@ -31,6 +32,7 @@ export function OverlayRoot() {
     useProductState();
   const { enabled: rufusEnabled, setEnabled: setRufusEnabled } = useRufusConsent();
   const priceHistory = usePriceHistory(state.product, PRICE_HISTORY_AUTO_FETCH_DELAY_MS, rufusEnabled);
+  const yearlyPriceHistory = useYearlyPriceHistory(state.product);
 
   // Visibility and active tab are persisted per-tab (via the background) so the
   // overlay stays open through the review scan's page navigations.
@@ -89,6 +91,7 @@ export function OverlayRoot() {
         analyzeSnapshot={analyzeSnapshot}
         analyzeMoreReviews={analyzeMoreReviews}
         priceHistory={priceHistory}
+        yearlyPriceHistory={yearlyPriceHistory}
         rufusEnabled={rufusEnabled}
         onEnableRufus={() => setRufusEnabled(true)}
         activeTab={activeTab}

@@ -147,19 +147,20 @@ function appendClause(tagline: string, clause: string | undefined): string {
 }
 
 /** Plain-language description of a price tone, for the score tooltip. */
-function priceToneLabel(priceTone: PriceAlertTone): string {
-  if (priceTone === "low") return "current low vs 30d history";
-  if (priceTone === "high") return "current high vs 30d history";
-  return "typical vs 30d history";
+function priceToneLabel(priceTone: PriceAlertTone, windowDays: number): string {
+  if (priceTone === "low") return `current low vs ${windowDays}d history`;
+  if (priceTone === "high") return `current high vs ${windowDays}d history`;
+  return `typical vs ${windowDays}d history`;
 }
 
-/** Builds the "how is this calculated" breakdown for the donut tooltip, including only the signals actually used. */
+/** Builds the "how is this calculated" breakdown for the donut tooltip, including only the signals actually used. `windowDays` (default 30) labels the price factor with however much history it was actually computed over. */
 function buildScoreFactors(
   sentimentScore: number,
   averageRating: number | undefined,
   ratingScore: number | undefined,
   priceTone: PriceAlertTone | undefined,
-  priceScore: number | undefined
+  priceScore: number | undefined,
+  windowDays = 30
 ): ScoreFactor[] {
   const factors: ScoreFactor[] = [
     { label: "Customer sentiment", detail: `${sentimentScore}/100`, weight: ASPECT_SCORE_WEIGHT }
@@ -175,8 +176,8 @@ function buildScoreFactors(
 
   if (priceTone !== undefined && priceScore !== undefined) {
     factors.push({
-      label: "Price vs. 30-day history",
-      detail: `${priceToneLabel(priceTone)} → ${priceScore}/100`,
+      label: `Price vs. ${windowDays}-day history`,
+      detail: `${priceToneLabel(priceTone, windowDays)} → ${priceScore}/100`,
       weight: PRICE_SCORE_WEIGHT
     });
   }
@@ -209,14 +210,17 @@ function getThemeTags(analysis: AnalysisResult): SentimentTag[] {
 /**
  * "Worth buying" verdict. The donut score blends three signals: the share of
  * positive "Customers say" pills on the product page, the overall star
- * rating, and how the current price compares to its 30-day history
+ * rating, and how the current price compares to its recent history
  * (`priceTone` from `getPriceAlert`). Rating and price only count toward the
- * score once that data is available - see `combineScores`.
+ * score once that data is available - see `combineScores`. `windowDays`
+ * (default 30) should be the same window `priceTone` was computed over, so
+ * the score tooltip's "vs. N-day history" label stays accurate.
  */
 export function getWorthBuyingVerdict(
   product?: ProductData,
   analysis?: AnalysisResult,
-  priceTone?: PriceAlertTone
+  priceTone?: PriceAlertTone,
+  windowDays = 30
 ): Verdict {
   const aspects = product?.insightAspects;
   const averageRating = getAverageRating(product, analysis);
@@ -261,7 +265,7 @@ export function getWorthBuyingVerdict(
       label: labelForScore(score),
       tagline: appendClause(tagline, priceNote),
       positive: score >= WORTH_CONSIDERING_THRESHOLD,
-      scoreFactors: buildScoreFactors(aspectScore, averageRating, ratingScore, priceTone, priceScore)
+      scoreFactors: buildScoreFactors(aspectScore, averageRating, ratingScore, priceTone, priceScore, windowDays)
     };
   }
 
@@ -277,7 +281,7 @@ export function getWorthBuyingVerdict(
       label: labelForScore(score),
       tagline: appendClause(base.tagline, priceNote),
       positive: score >= WORTH_CONSIDERING_THRESHOLD,
-      scoreFactors: buildScoreFactors(base.score, averageRating, ratingScore, priceTone, priceScore)
+      scoreFactors: buildScoreFactors(base.score, averageRating, ratingScore, priceTone, priceScore, windowDays)
     };
   }
 
@@ -293,7 +297,7 @@ export function getWorthBuyingVerdict(
     label: labelForScore(score),
     tagline: appendClause("Analyzing customer feedback…", priceNote),
     positive: score >= WORTH_CONSIDERING_THRESHOLD,
-    scoreFactors: buildScoreFactors(baseScore, averageRating, ratingScore, priceTone, priceScore)
+    scoreFactors: buildScoreFactors(baseScore, averageRating, ratingScore, priceTone, priceScore, windowDays)
   };
 }
 
