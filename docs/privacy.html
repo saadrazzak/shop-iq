@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ShopIQ — Privacy Policy</title>
+<title>ShopIQ Privacy Policy</title>
 <style>
   :root {
     --ink: #1a1f2b;
@@ -74,17 +74,17 @@
 <body>
 <div class="wrap">
   <h1>ShopIQ Privacy Policy</h1>
-  <p class="updated">Last updated: June 23, 2026</p>
+  <p class="updated">Last updated: June 24, 2026</p>
 
   <div class="summary">
-    <strong>In short:</strong> ShopIQ has no server, no account/sign-up, and no analytics or tracking
-    of any kind. Everything it reads stays on your device, in your browser's local storage. Nothing
-    is ever sent to us, because there is no "us" to send it to — there is no backend.
+    <strong>In short:</strong> ShopIQ has no server, no account or sign-up, and no analytics or
+    tracking of any kind. Everything it reads stays on your device, in your browser's local storage.
+    Nothing is ever sent to us, because there is no "us" to send it to: ShopIQ has no backend.
   </div>
 
   <h2>What ShopIQ is</h2>
   <p>
-    ShopIQ is a Chrome extension that adds a buying-assistant overlay to Amazon India product pages —
+    ShopIQ is a Chrome extension that adds a buying-assistant overlay to Amazon India product pages,
     showing a buy-score, price history, seller trust info, review browsing, and price/discussion
     comparisons from other retailers. All of this logic runs locally inside the extension installed in
     your browser.
@@ -103,14 +103,29 @@
     any server we operate, because none exists.
   </p>
 
+  <h2>Price history (Amazon's own AI assistant)</h2>
+  <p>
+    If you turn on "Use Amazon AI" in settings, ShopIQ asks Amazon's own on-page assistant
+    (Rufus) for this product's price history - the same thing you could do yourself by typing
+    into Rufus. ShopIQ enters a short prompt into Rufus's search box, submits it, and reads the
+    text Rufus displays back, then shows that as a chart in the overlay. This is off by default;
+    you have to turn it on.
+  </p>
+  <p>
+    This happens entirely inside your browser, using Rufus exactly as it already exists on the
+    page. The prompt and Rufus's response are never sent to ShopIQ or anyone else - only cached on
+    your device (12 hours for the recent-months view, 24 hours for the 1-year view) so the same
+    question isn't asked repeatedly.
+  </p>
+
   <h2>Why ShopIQ requests access to other websites</h2>
   <p>
     ShopIQ's manifest lists permissions for Croma, Reliance Digital, Ajio, Meesho, Myntra, Reddit, and
     YouTube. These are used only to fetch publicly available price listings and discussion threads for
     the specific product you're currently viewing, so ShopIQ can show comparison prices and related
     community discussion in the overlay. Each request sends only a short search query built from the
-    product's name (e.g. <code>"Apple 2023 MacBook Pro"</code>) — never your identity, account, browsing
-    history, or anything else about you.
+    product's name (e.g. <code>"Apple 2023 MacBook Pro"</code>). It never includes your identity,
+    account, browsing history, or anything else about you.
   </p>
   <p>
     These sites are independent of ShopIQ; any data they receive is handled under their own privacy
@@ -123,7 +138,8 @@
   </p>
   <ul>
     <li>Your settings (e.g. auto-open overlay, sponsored-ad handling mode)</li>
-    <li>Short-lived caches (seller trust info for 24 hours, price history for 12 hours) so the overlay
+    <li>Short-lived caches (seller trust info for 24 hours, recent price history for 12 hours, the
+      1-year price view for 24 hours) so the overlay
       doesn't re-fetch the same data repeatedly</li>
   </ul>
   <p>
@@ -132,9 +148,10 @@
 
   <h2>Tabs and messaging</h2>
   <p>
-    ShopIQ uses the browser tab APIs only to talk to its own overlay in your current tab, and — during
-    an optional "analyze more reviews" scan — to navigate that tab to Amazon's own review page and back,
-    the same pages you could open yourself. No tab content is sent anywhere outside your browser.
+    ShopIQ uses the browser tab APIs for two things: talking to its own overlay in your current tab,
+    and, during an optional "analyze more reviews" scan, navigating that tab to Amazon's own review
+    page and back (the same pages you could open yourself). No tab content is sent anywhere outside
+    your browser.
   </p>
 
   <h2>No remote code</h2>
@@ -158,7 +175,7 @@
     <a href="https://github.com/saadrazzak/shop-iq/issues" target="_blank" rel="noreferrer">github.com/saadrazzak/shop-iq/issues</a>.
   </p>
 
-  <footer>ShopIQ — an independent project, not affiliated with Amazon.</footer>
+  <footer>ShopIQ is an independent project, not affiliated with Amazon.</footer>
 </div>
 </body>
 </html>
